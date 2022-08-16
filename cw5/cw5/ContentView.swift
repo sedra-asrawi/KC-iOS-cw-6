@@ -10,54 +10,25 @@ import SwiftUI
 struct ContentView: View {
     @State var counter: [Int] = [0, 0, 0]
     var body: some View {
+        ZStack{
+            RadialGradient(
+                gradient: Gradient(colors: [Color("Color1"), Color("Color2")]),
+                center: .topLeading,
+                startRadius: 1,
+                endRadius: 960)
+            .ignoresSafeArea()
         VStack{
-            HStack{
-                Text("أستغفر الله العظيم").font(.title)
-                Spacer()
-                Text("\(counter[0])")
-                    .font(.largeTitle)
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .foregroundColor(.white)
-                    .background(Color.green)
-                    .clipShape(Circle())
-                    .padding()
-                    .onTapGesture {
-                        counter[0] = counter[0] + 1
-                    }
-            }.padding()
-            HStack{
-                Spacer()
-                Text("الحمدلله").font(.title)
-                Spacer()
-                Text("\(counter[1])")
-                    .font(.largeTitle)
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .foregroundColor(.white)
-                    .background(Color.green)
-                    .clipShape(Circle())
-                    .padding()
-                    .onTapGesture {
-                        counter[1] = counter[1] + 1
-                    }
-            }.padding()
-            HStack{
-                Text("سبحان الله وبحمده").font(.title)
-                Spacer()
-                Text("\(counter[2])")
-                    .font(.largeTitle)
-                    .frame(width: 100, height: 100, alignment: .center)
-                    .foregroundColor(.white)
-                    .background(Color.green)
-                    .clipShape(Circle())
-                    .padding()
-                    .onTapGesture {
-                        counter[2] = counter[2] + 1
-                    }
-            }.padding()
+            Text("أذكاري :-")
+                .font(.custom(FontsManager.Lalezar.regular, size: 50))
+                .padding()
+            RowView(MyCounter: $counter[0], title: "استغفر الله العظيم")
+            RowView(MyCounter: $counter[1], title: "سبحان الله وبحمده")
+            RowView(MyCounter: $counter[2], title: "سبحان الله العظيم")
+
         }
     }
 }
-
+}
 
 // يجب عمل extract
 
@@ -66,3 +37,29 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+struct RowView: View {
+    @Binding var MyCounter: Int
+    @State var title = ""
+    var body: some View {
+      
+            
+        HStack{
+            Text("\(title)")
+                .padding()
+                .font(.custom(FontsManager.Lalezar.regular, size: 30))
+            Spacer()
+            Text("\(MyCounter)")
+                .font(.largeTitle)
+                .frame(width: 100, height: 100, alignment: .center)
+                .foregroundColor(.blue.opacity(0.5))
+                .background(Color.white)
+                .clipShape(Circle())
+//                .padding()
+                .onTapGesture {
+                    MyCounter = MyCounter + 1
+                }
+        }.padding()
+    }
+    }
+
